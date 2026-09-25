@@ -4,7 +4,7 @@ import java.util.Random;
 
 class RCubeAlgorithms {
 
-    public static void main() {
+    void main() {
         //Variables
         Random random = new Random();
         Scanner sc = new Scanner(System.in);

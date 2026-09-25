@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class WeaponTestClass {
 
-    static void main() {
+    void main() {
         //Variables
         Scanner sc = new Scanner(System.in);
         Sword newSword = new Sword();
