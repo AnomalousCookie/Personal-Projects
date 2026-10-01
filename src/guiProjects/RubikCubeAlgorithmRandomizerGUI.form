@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="guiProjects.RubikCubeAlgorithmRandomizerGUI">
+  <grid id="27dc6" binding="mainPanel" layout-manager="BorderLayout" hgap="0" vgap="0">
+    <constraints>
+      <xy x="20" y="20" width="500" height="400"/>
+    </constraints>
+    <properties/>
+    <border type="none"/>
+    <children>
+      <component id="2747b" class="javax.swing.JLabel" binding="label1">
+        <constraints border-constraint="North"/>
+        <properties>
+          <horizontalAlignment value="0"/>
+          <text value="Rubik's Cube Algorithm Generator"/>
+        </properties>
+      </component>
+      <component id="501da" class="javax.swing.JButton" binding="buttonPLL">
+        <constraints border-constraint="East"/>
+        <properties>
+          <text value="Generate PLL"/>
+        </properties>
+      </component>
+      <component id="2f91b" class="javax.swing.JButton" binding="buttonOLL">
+        <constraints border-constraint="West"/>
+        <properties>
+          <text value="Generate OLL"/>
+        </properties>
+      </component>
+      <component id="5fe07" class="javax.swing.JTextField" binding="textField1">
+        <constraints border-constraint="Center"/>
+        <properties>
+          <horizontalAlignment value="0"/>
+          <text value="Algorithm"/>
+        </properties>
+      </component>
+    </children>
+  </grid>
+</form>

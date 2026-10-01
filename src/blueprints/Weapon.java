@@ -1,3 +1,4 @@
+//This is the parent class of Bludgeon, Gun and Sword
 package blueprints;
 
 abstract class Weapon {
