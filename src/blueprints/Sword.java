@@ -1,3 +1,4 @@
+//Child class of Weapon
 package blueprints;
 
 public class Sword extends Weapon{
