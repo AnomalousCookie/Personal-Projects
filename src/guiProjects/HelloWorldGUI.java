@@ -1,5 +1,6 @@
 package guiProjects;
 import javax.swing.*;
+import java.awt.*;
 
 public class HelloWorldGUI { //First testing of GUI within IntelliJ, supposedly 'BorderLayout' is standard within the industry
     private JPanel panel1;
@@ -25,4 +26,5 @@ public class HelloWorldGUI { //First testing of GUI within IntelliJ, supposedly 
 
     private void createUIComponents() {
     }
+
 }
