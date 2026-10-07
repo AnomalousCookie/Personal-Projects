@@ -3,6 +3,7 @@ package guiProjects;
 import javax.swing.*;
 import java.util.Random;
 import javax.swing.Timer;
+import javax.swing.JOptionPane;
 
 public class slotMachineGUI {
     private JPanel panel1;
@@ -37,9 +38,25 @@ public class slotMachineGUI {
         localButton1.setText("spinning...");
         Timer timer = new Timer(localDelayMs, e -> {
             localButton1.setText("SPIN");
-            localLabel4.setText("[  " + localSlotPossibilities[localRand.nextInt(localSlotPossibilities.length)] + "  ]");
-            localLabel3.setText("[  " + localSlotPossibilities[localRand.nextInt(localSlotPossibilities.length)] + "  ]");
-            localLabel2.setText("[  " + localSlotPossibilities[localRand.nextInt(localSlotPossibilities.length)] + "  ]");
+            localLabel4.setText("" + localSlotPossibilities[localRand.nextInt(localSlotPossibilities.length)]);
+            localLabel3.setText("" + localSlotPossibilities[localRand.nextInt(localSlotPossibilities.length)]);
+            localLabel2.setText("" + localSlotPossibilities[localRand.nextInt(localSlotPossibilities.length)]);
+            //This creates new local variables just for better understanding
+            int localLabel4Value = Integer.parseInt(localLabel4.getText().trim());
+            int localLabel3Value = Integer.parseInt(localLabel3.getText().trim());
+            int localLabel2Value = Integer.parseInt(localLabel2.getText().trim());
+            //Now this checks if the user hit any matching numbers
+            if(localLabel4Value == localLabel3Value || localLabel4Value == localLabel2Value || localLabel3Value == localLabel2Value) {
+                int localMatch;
+                if(localLabel4Value == localLabel3Value || localLabel4Value == localLabel2Value) {
+                    localMatch = localLabel4Value;
+                    JOptionPane.showMessageDialog(null, "Pair: " + localMatch);
+                }
+                else {
+                    localMatch = localLabel2Value;
+                    JOptionPane.showMessageDialog(null, "Pair: " + localMatch);
+                }
+            }
         });
         timer.setRepeats(false);
         timer.start();
