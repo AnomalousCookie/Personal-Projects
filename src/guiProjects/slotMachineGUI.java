@@ -46,16 +46,24 @@ public class slotMachineGUI {
             int localLabel3Value = Integer.parseInt(localLabel3.getText().trim());
             int localLabel2Value = Integer.parseInt(localLabel2.getText().trim());
             //Now this checks if the user hit any matching numbers
-            if(localLabel4Value == localLabel3Value || localLabel4Value == localLabel2Value || localLabel3Value == localLabel2Value) {
+            if(localLabel4Value == localLabel3Value && localLabel4Value == localLabel2Value) {
+                int localMatch;
+                localMatch = localLabel4Value;
+                JOptionPane.showMessageDialog(null, "Jackpot");
+            }
+            else if(localLabel4Value == localLabel3Value || localLabel4Value == localLabel2Value || localLabel3Value == localLabel2Value) {
                 int localMatch;
                 if(localLabel4Value == localLabel3Value || localLabel4Value == localLabel2Value) {
                     localMatch = localLabel4Value;
-                    JOptionPane.showMessageDialog(null, "Pair: " + localMatch);
+                    JOptionPane.showMessageDialog(null, "Matching Pair");
                 }
                 else {
                     localMatch = localLabel2Value;
-                    JOptionPane.showMessageDialog(null, "Pair: " + localMatch);
+                    JOptionPane.showMessageDialog(null, "Matching Pair");
                 }
+            }
+            else {
+
             }
         });
         timer.setRepeats(false);
