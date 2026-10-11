@@ -45,7 +45,7 @@ public class slotMachineGUI {
             int localLabel4Value = Integer.parseInt(localLabel4.getText().trim());
             int localLabel3Value = Integer.parseInt(localLabel3.getText().trim());
             int localLabel2Value = Integer.parseInt(localLabel2.getText().trim());
-            //Now this checks if the user hit any matching numbers
+            //These if statements now check for any pairs or jackpots (3 of a kind)
             if(localLabel4Value == localLabel3Value && localLabel4Value == localLabel2Value) {
                 int localMatch;
                 localMatch = localLabel4Value;
@@ -61,9 +61,6 @@ public class slotMachineGUI {
                     localMatch = localLabel2Value;
                     JOptionPane.showMessageDialog(null, "Matching Pair");
                 }
-            }
-            else {
-
             }
         });
         timer.setRepeats(false);
