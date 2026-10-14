@@ -15,7 +15,8 @@ public class slotMachineGUI {
     private JLabel cashLabel;
     private JLabel label5;
     Random rand = new Random();
-    int[] slotPossibilities = {0, 1, 2, 3, 4, 10};
+    int[] slotPossibilities = {1, 1, 1, 2, 2, 3, 4, 5, 10};
+    int cash = 1000;
 
     void main() {
         JFrame frame = new JFrame("Application");
@@ -29,45 +30,54 @@ public class slotMachineGUI {
     //button function
     public slotMachineGUI() {
         button1.addActionListener(e -> {
-            spin(rand, slotPossibilities, label4, label3, label2, button1, 1000);
+            if(cash <= 0) {
+                JOptionPane.showMessageDialog(null, "You do not have the available cash to spin");
+            }
+            else if (cash >= 200) {
+                cash -= 200;
+                cash = spin(rand, slotPossibilities, label4, label3, label2, button1, 1000, cash);
+                cashLabel.setText("$" + cash);
+            }
         });
-
     }
 
     //general methods
-    //spin: when called, the method will choose 3 random numbers then display it onto the users screen, it then checks for any matches and promptly tells the user
-    //parameters: Random localRand, int[] localSlotPossibilities, JLabel localLabel4, JLabel localLabel3, JLabel localLabel2, JButton localButton1, int localDelayMs
-    //returns: void
-    public static void spin(Random localRand, int[] localSlotPossibilities, JLabel localLabel4, JLabel localLabel3, JLabel localLabel2, JButton localButton1, int localDelayMs) {
-        localButton1.setText("spinning...");
-        Timer timer = new Timer(localDelayMs, e -> {
-            localButton1.setText("SPIN");
-            localLabel4.setText("" + localSlotPossibilities[localRand.nextInt(localSlotPossibilities.length)]);
-            localLabel3.setText("" + localSlotPossibilities[localRand.nextInt(localSlotPossibilities.length)]);
-            localLabel2.setText("" + localSlotPossibilities[localRand.nextInt(localSlotPossibilities.length)]);
-            //This creates new local variables just for better understanding
-            int localLabel4Value = Integer.parseInt(localLabel4.getText().trim());
-            int localLabel3Value = Integer.parseInt(localLabel3.getText().trim());
-            int localLabel2Value = Integer.parseInt(localLabel2.getText().trim());
-            //These if statements now check for any pairs or jackpots (3 of a kind)
-            if(localLabel4Value == localLabel3Value && localLabel4Value == localLabel2Value) {
-                int localMatch;
-                localMatch = localLabel4Value;
-                JOptionPane.showMessageDialog(null, "Jackpot");
+    //spin: the method will choose 3 random numbers then display it onto the users screen, it then checks for any matches and promptly tells the user, then it will calculate the cash the user gets (if at all)
+    //parameters: Random localRand, int[] localSlotPossibilities, JLabel localLabel4, JLabel localLabel3, JLabel localLabel2, JButton localButton1, int localDelayMs, int localCash
+    //returns: int
+    public static int spin(Random localRand, int[] localSlotPossibilities, JLabel localLabel4, JLabel localLabel3, JLabel localLabel2, JButton localButton1, int localDelayMs, int localCash) {
+        //Creates the 3 random values
+        int localSlot1 = localSlotPossibilities[localRand.nextInt(localSlotPossibilities.length)];
+        int localSlot2 = localSlotPossibilities[localRand.nextInt(localSlotPossibilities.length)];
+        int localSlot3 = localSlotPossibilities[localRand.nextInt(localSlotPossibilities.length)];
+
+        //Visually shows the user their results
+        localLabel4.setText("" + localSlot1);
+        localLabel3.setText("" + localSlot2);
+        localLabel2.setText("" + localSlot3);
+
+        //This now checks if the user hit any matches and calculates the cash if they did
+        //These if statements now check for any pairs or jackpots (3 of a kind)
+        if(localSlot1 == localSlot2 && localSlot1 == localSlot3) {
+            int localMatch;
+            localMatch = localSlot1;
+            localCash = (localCash * (localMatch + 1)) + 1000;
+            JOptionPane.showMessageDialog(null, "Jackpot: +$" + localCash);
+        }
+        else if(localSlot1 == localSlot2 || localSlot1 == localSlot3 || localSlot2 == localSlot3) {
+            int localMatch;
+            if(localSlot1 == localSlot2 || localSlot1 == localSlot3) {
+                localMatch = localSlot1;
+                localCash = (localCash * localMatch) + 200;
+                JOptionPane.showMessageDialog(null, "Matching Pair: +$" + localCash);
             }
-            else if(localLabel4Value == localLabel3Value || localLabel4Value == localLabel2Value || localLabel3Value == localLabel2Value) {
-                int localMatch;
-                if(localLabel4Value == localLabel3Value || localLabel4Value == localLabel2Value) {
-                    localMatch = localLabel4Value;
-                    JOptionPane.showMessageDialog(null, "Matching Pair");
-                }
-                else {
-                    localMatch = localLabel2Value;
-                    JOptionPane.showMessageDialog(null, "Matching Pair");
-                }
+            else {
+                localMatch = localSlot3;
+                localCash = (localCash * localMatch) + 200;
+                JOptionPane.showMessageDialog(null, "Matching Pair: +$" + localCash);
             }
-        });
-        timer.setRepeats(false);
-        timer.start();
+        }
+
+        return localCash;
     }
 }
