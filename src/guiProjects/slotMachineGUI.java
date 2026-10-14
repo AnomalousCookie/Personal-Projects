@@ -1,22 +1,23 @@
 package guiProjects;
-
 import javax.swing.*;
 import java.util.Random;
 import javax.swing.Timer;
 import javax.swing.JOptionPane;
 
 public class slotMachineGUI {
+    //Variables
     private JPanel panel1;
     private JLabel label1;
     private JLabel label2;
     private JButton button1;
     private JLabel label3;
     private JLabel label4;
+    private JLabel cashLabel;
+    private JLabel label5;
     Random rand = new Random();
     int[] slotPossibilities = {0, 1, 2, 3, 4, 10};
 
     void main() {
-        //Variables
         JFrame frame = new JFrame("Application");
 
         frame.setContentPane(new slotMachineGUI().panel1);
@@ -25,7 +26,7 @@ public class slotMachineGUI {
         frame.setVisible(true);
     }
 
-    //button functions
+    //button function
     public slotMachineGUI() {
         button1.addActionListener(e -> {
             spin(rand, slotPossibilities, label4, label3, label2, button1, 1000);
@@ -34,6 +35,9 @@ public class slotMachineGUI {
     }
 
     //general methods
+    //spin: when called, the method will choose 3 random numbers then display it onto the users screen, it then checks for any matches and promptly tells the user
+    //parameters: Random localRand, int[] localSlotPossibilities, JLabel localLabel4, JLabel localLabel3, JLabel localLabel2, JButton localButton1, int localDelayMs
+    //returns: void
     public static void spin(Random localRand, int[] localSlotPossibilities, JLabel localLabel4, JLabel localLabel3, JLabel localLabel2, JButton localButton1, int localDelayMs) {
         localButton1.setText("spinning...");
         Timer timer = new Timer(localDelayMs, e -> {
