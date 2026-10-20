@@ -1,7 +1,6 @@
 package guiProjects;
 import javax.swing.*;
 import java.util.Random;
-import javax.swing.Timer;
 import javax.swing.JOptionPane;
 
 public class slotMachineGUI {
@@ -14,6 +13,7 @@ public class slotMachineGUI {
     private JLabel label4;
     private JLabel cashLabel;
     private JLabel label5;
+    private JButton button2;
     Random rand = new Random();
     int[] slotPossibilities = {1, 1, 1, 2, 2, 3, 4, 5, 10};
     int cash = 1000;
@@ -35,17 +35,26 @@ public class slotMachineGUI {
             }
             else if (cash >= 200) {
                 cash -= 200;
-                cash = spin(rand, slotPossibilities, label4, label3, label2, button1, 1000, cash);
+                cash = spin(rand, slotPossibilities, label4, label3, label2, cash, false);
                 cashLabel.setText("$" + cash);
             }
+        });
+
+        button2.addActionListener(e -> {
+                if(cash <= 0) {
+                    JOptionPane.showMessageDialog(null,"You have no money to go all in with.");
+                }
+                else {
+                    cash = spin(rand, slotPossibilities, label4, label3, label2, cash, true);
+                    cashLabel.setText("$" + cash);
+                }
         });
     }
 
     //general methods
     //spin: the method will choose 3 random numbers then display it onto the users screen, it then checks for any matches and promptly tells the user, then it will calculate the cash the user gets (if at all)
-    //parameters: Random localRand, int[] localSlotPossibilities, JLabel localLabel4, JLabel localLabel3, JLabel localLabel2, JButton localButton1, int localDelayMs, int localCash
-    //returns: int
-    public static int spin(Random localRand, int[] localSlotPossibilities, JLabel localLabel4, JLabel localLabel3, JLabel localLabel2, JButton localButton1, int localDelayMs, int localCash) {
+    // returns: int
+    public static int spin(Random localRand, int[] localSlotPossibilities, JLabel localLabel4, JLabel localLabel3, JLabel localLabel2, int localCash, boolean localAllIn) {
         //Creates the 3 random values
         int localSlot1 = localSlotPossibilities[localRand.nextInt(localSlotPossibilities.length)];
         int localSlot2 = localSlotPossibilities[localRand.nextInt(localSlotPossibilities.length)];
@@ -59,23 +68,44 @@ public class slotMachineGUI {
         //This now checks if the user hit any matches and calculates the cash if they did
         //These if statements now check for any pairs or jackpots (3 of a kind)
         if(localSlot1 == localSlot2 && localSlot1 == localSlot3) {
-            int localMatch;
-            localMatch = localSlot1;
-            localCash = (localCash * (localMatch + 1)) + 1000;
-            JOptionPane.showMessageDialog(null, "Jackpot: +$" + localCash);
+            //check if the user is all in, if they are then times the total cash they have rather than just the normal 200
+            if(localAllIn == true) {
+                localCash = (localCash * (localSlot1 + 1)) + 1000;
+                JOptionPane.showMessageDialog(null, "Jackpot: +$" + localCash);
+            }
+            //otherwise, proceed as normal
+            else {
+                localCash = (200 * (localSlot1 + 1)) + 1000;
+                JOptionPane.showMessageDialog(null, "Jackpot: +$" + localCash);
+            }
         }
         else if(localSlot1 == localSlot2 || localSlot1 == localSlot3 || localSlot2 == localSlot3) {
-            int localMatch;
-            if(localSlot1 == localSlot2 || localSlot1 == localSlot3) {
-                localMatch = localSlot1;
-                localCash = (localCash * localMatch) + 200;
-                JOptionPane.showMessageDialog(null, "Matching Pair: +$" + localCash);
+            //check if the user is all in, if they are then times the total cash they have rather than just the normal 200
+            if(localAllIn == true) {
+                if(localSlot1 == localSlot2 || localSlot1 == localSlot3) {
+                    localCash = (localCash * localSlot1) + 200;
+                    JOptionPane.showMessageDialog(null, "Matching Pair: +$" + localCash);
+                }
+                else {
+                    localCash = (localCash * localSlot3) + 200;
+                    JOptionPane.showMessageDialog(null, "Matching Pair: +$" + localCash);
+                }
             }
+            //otherwise, proceed as normal
             else {
-                localMatch = localSlot3;
-                localCash = (localCash * localMatch) + 200;
-                JOptionPane.showMessageDialog(null, "Matching Pair: +$" + localCash);
+                if(localSlot1 == localSlot2 || localSlot1 == localSlot3) {
+                    localCash = (200 * localSlot1) + 200;
+                    JOptionPane.showMessageDialog(null, "Matching Pair: +$" + localCash);
+                }
+                else {
+                    localCash = (200 * localSlot3) + 200;
+                    JOptionPane.showMessageDialog(null, "Matching Pair: +$" + localCash);
+                }
             }
+        }
+        else if(localAllIn == true){
+            JOptionPane.showMessageDialog(null, "Your all in was fruitless");
+            localCash = 0;
         }
 
         return localCash;
