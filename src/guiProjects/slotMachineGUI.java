@@ -65,11 +65,10 @@ public class slotMachineGUI {
         localLabel3.setText("" + localSlot2);
         localLabel2.setText("" + localSlot3);
 
-        //This now checks if the user hit any matches and calculates the cash if they did
-        //These if statements now check for any pairs or jackpots (3 of a kind)
+        //Checks for jackpots (3 of a kind)
         if(localSlot1 == localSlot2 && localSlot1 == localSlot3) {
             //check if the user is all in, if they are then times the total cash they have rather than just the normal 200
-            if(localAllIn == true) {
+            if(localAllIn) {
                 localCash = (localCash * (localSlot1 + 1)) + 1000;
                 JOptionPane.showMessageDialog(null, "Jackpot: +$" + localCash);
             }
@@ -79,9 +78,10 @@ public class slotMachineGUI {
                 JOptionPane.showMessageDialog(null, "Jackpot: +$" + localCash);
             }
         }
+        //Checks for regular pairs
         else if(localSlot1 == localSlot2 || localSlot1 == localSlot3 || localSlot2 == localSlot3) {
             //check if the user is all in, if they are then times the total cash they have rather than just the normal 200
-            if(localAllIn == true) {
+            if(localAllIn) {
                 if(localSlot1 == localSlot2 || localSlot1 == localSlot3) {
                     localCash = (localCash * localSlot1) + 200;
                     JOptionPane.showMessageDialog(null, "Matching Pair: +$" + localCash);
@@ -103,7 +103,7 @@ public class slotMachineGUI {
                 }
             }
         }
-        else if(localAllIn == true){
+        else if(localAllIn){
             JOptionPane.showMessageDialog(null, "Your all in was fruitless");
             localCash = 0;
         }
