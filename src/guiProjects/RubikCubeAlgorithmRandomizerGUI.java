@@ -3,7 +3,7 @@ import java.awt.*;
 import java.util.Random;
 import javax.swing.*;
 
-public class RubikCubeAlgorithmRandomizerGUI { //This class is the better version of my old Rubik's cube randomizer
+public class RubikCubeAlgorithmRandomizerGUI {
     //Variables
     private JPanel mainPanel;
     private JButton buttonOLL;
