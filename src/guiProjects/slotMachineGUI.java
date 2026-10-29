@@ -15,7 +15,7 @@ public class slotMachineGUI {
     private JLabel label5;
     private JButton button2;
     Random rand = new Random();
-    int[] slotPossibilities = {1, 1, 1, 2, 2, 3, 4, 5, 10};
+    int[] slotPossibilities = {1, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 10};
     int cash = 1000;
 
     void main() {
@@ -69,12 +69,12 @@ public class slotMachineGUI {
         if(localSlot1 == localSlot2 && localSlot1 == localSlot3) {
             //check if the user is all in, if they are then times the total cash they have rather than just the normal 200
             if(localAllIn) {
-                localCash = (localCash * (localSlot1 + 1)) + 1000;
+                localCash = ((localCash * localSlot1+1) * localSlot1) + 1000;
                 JOptionPane.showMessageDialog(null, "Jackpot - new balance: $" + localCash);
             }
             //otherwise, proceed as normal
             else {
-                localCash = (localCash + (200 * (localSlot1 + 1))) + 1000;
+                localCash = ((localCash * localSlot1+1) * localSlot1) + 1000;
                 JOptionPane.showMessageDialog(null, "Jackpot - new balance: $" + localCash);
             }
         }
