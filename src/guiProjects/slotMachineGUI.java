@@ -69,12 +69,12 @@ public class slotMachineGUI {
         if(localSlot1 == localSlot2 && localSlot1 == localSlot3) {
             //check if the user is all in, if they are then times the total cash they have rather than just the normal 200
             if(localAllIn) {
-                localCash = ((localCash * localSlot1+1) * localSlot1) + 1000;
+                localCash = localCash + ((localCash * (localSlot1+1)) * localSlot1) + 1000;
                 JOptionPane.showMessageDialog(null, "Jackpot - new balance: $" + localCash);
             }
             //otherwise, proceed as normal
             else {
-                localCash = ((localCash * localSlot1+1) * localSlot1) + 1000;
+                localCash = localCash + ((200 * (localSlot1+1)) * localSlot1) + 1000;
                 JOptionPane.showMessageDialog(null, "Jackpot - new balance: $" + localCash);
             }
         }
@@ -83,11 +83,11 @@ public class slotMachineGUI {
             //check if the user is all in, if they are then times the total cash they have rather than just the normal 200
             if(localAllIn) {
                 if(localSlot1 == localSlot2 || localSlot1 == localSlot3) {
-                    localCash = (localCash * localSlot1) + 200;
+                    localCash = (localCash + (localCash * localSlot1)) + 200;
                     JOptionPane.showMessageDialog(null, "Matching Pair - new balance: $" + localCash);
                 }
                 else {
-                    localCash = (localCash * localSlot3) + 200;
+                    localCash = (localCash + (localCash * localSlot3)) + 200;
                     JOptionPane.showMessageDialog(null, "Matching Pair - new balance: $" + localCash);
                 }
             }
